@@ -5,7 +5,7 @@
 // var user = "http://192.168.5.76:8089/hrm_test"; // 小辉测试本地 
 
 // var user = "http://192.168.5.76:8080/hrm"; // 小辉本地
-var user = "http://192.168.4.155:8080/hrm"; // 丸子本地
+// var user = "http://192.168.4.155:8080/hrm"; // 丸子本地
 // var user = "http://192.168.4.60:8080/hrm"; // 天明本地
 // var user = "http://192.168.4.87:8080/hrm"; // 江流本地
 // var user = "http://76036975.ittun.com/hrm"; // 江流本地
@@ -13,7 +13,7 @@ var user = "http://192.168.4.155:8080/hrm"; // 丸子本地
 // var user = "http://192.168.3.167:8080/hrm";  //鹿丸
 
 // var user="http://121.199.182.2:30004/hrm" //测试
-// var user = "https://aijuhr.com/hrm"; // 正式
+var user = "https://aijuhr.com/hrm"; // 正式
 
 exports.ukeyNo = false;//U盾的开关,正式:false,开发:true
 // exports.ukeyNo = true;//U盾的开关,正式:false,开发:true
@@ -33,7 +33,7 @@ exports.postImportUrl = user + "/upload.do?method=positionManage/importPositionD
 
 //scrm 域名
 // exports.scrmUrl = 'https://aijuhr.ecbao.cn/';//测式
-// exports.scrmUrl = 'https://dev.aijuhr.com/';//正式
+exports.scrmUrl = 'https://dev.aijuhr.com/';//正式
 
 
 /**

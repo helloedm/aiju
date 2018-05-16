@@ -19,7 +19,7 @@
         @current-change="handleCurrentChange"
         background
         layout="prev, pager, next"
-        :total="100">
+        :total="totalCount">
       </el-pagination>      
     </div>
 
@@ -31,7 +31,8 @@ export default {
   data(){
     return{
       getProductTrends:[],
-      page:1
+      page:1,
+      totalCount:1
     }
   },
   mounted(){
@@ -92,6 +93,7 @@ export default {
       var successd = function(res) {
         // console.log(res);
         _this.getProductTrends = res.data.data.productTrends;
+        _this.totalCount = res.data.data.page.totalCount;
       };
       _this.$http(method, param, successd);
     }
@@ -116,6 +118,7 @@ export default {
     flex-wrap: wrap;
   }
   .list{
+    cursor: pointer;
     height: 82px;
     width: 92%;
     border-bottom: 1px solid #EBEEF5;
