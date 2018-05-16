@@ -51,6 +51,7 @@ import gooffer from 'components/employ/gooffer'
 import come from 'components/employ/comeposition'
 import confirmjoin from 'components/employ/confirmjoin'
 import recruitment from "components/recruitment/recruitment"
+import edit from "components/recruitment/edit"
 
 //面试
 import interviewSet from "components/interview/set"
@@ -448,6 +449,11 @@ export default new Router({
       path:'/ATS/recruitment',
       name:'recruitment',
       component:recruitment
+    },
+    {
+      path:'/ATS/edit',
+      name:'edit',
+      component:edit
     },
     {
       path:'/ATS/editResume',

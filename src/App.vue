@@ -1,58 +1,9 @@
 <template>
 	<div id="app" class="clearfix" :class="{'oa_ecbao_cn' : oa_login}" v-loading.fullscreen.lock="fullscreenLoading">
-		<!-- <div id="wxMask" v-if="ewm.wxMask">
-       <div id="ewmWrap">
-         <img src="static/img/ewmTitle.png" alt="title">
-         <img id="ewm" :src="ewm.src" alt="二维码">
-         <p>绑定微信后，我们为你提供更多服务</p>
-       </div>
-    </div> -->
-    <!-- hrmRoleId:{
-      1:管理员,
-      2:员工,
-      3:财务,
-      4:招聘专员,
-      5:面试官,
-      6:苏宁云商城体验用户,
-      7:人事
-    } -->
+    <!-- 顶部导航条 -->
     <div class="app_nav">
 			<div class="app_nav_logo"></div>
-
-			<!-- <div class="app_nav_access">
-        <span @click="userMenusToggle = 2;$router.push('/ATS/recruitment');remainingDaysGet();appNaveHide=true" :class="{active: userMenusToggle==2}" v-if="Util.ukeyNo||(userData&&(userData.userNature==1||userData.hrmRoleId==1||userData.hrmRoleId==4)&&userData.hrmRoleId!=6&&userData.hrmRoleId!=5&&userData.hrmRoleId!=7)"><i class="iconfont" style="fontsize: 30px;">&#xe677;</i>招聘管理
-          <span v-show="remainingDays.expireDays <= 3" id="remainingDays">剩余{{ remainingDays.expireDays }}天</span>
-        </span>
-				<span @click="userMenusToggle = 0; $router.push('/index');appNaveHide=true" v-bind:class="{active: userMenusToggle ==0}"><i class="iconfont" style="fontsize: 30px;">&#xe684;</i>协同办公</span>
-				<span @click="ukeyPopShow" v-bind:class="{active: userMenusToggle==1}" v-if="Util.ukeyNo||(userData.userNature==1||userData.hrmRoleId==3||userData.hrmRoleId==6||userData.hrmRoleId==7)"><i class="iconfont" style="fontsize: 30px;">&#xe79c;</i>公司管理</span>
-			</div> -->
-      <div class="app_nav_access">
-        <span v-for="(item, index) in leftMenuList" v-if="index<3" :key="item.id" @click="userMenusToggleChange(item)" :class="{active: userMenusToggle== item.id}"><i class="iconfont" style="fontsize: 30px;" v-html="item.icon"></i>{{ item.name }}
-          <span v-show="item.id == '1' && remainingDays.expireDays <= 3" id="remainingDays">剩余{{ remainingDays.expireDays }}天</span>
-        </span>
-			</div>
-			<div class="app_nav_msg">
-				<el-dropdown trigger="hover" @command="logOut">
-					<div class="el-dropdown-link">
-						<span class="add_nav_msg_header" v-if="userData&&userData.fileInfo == null">{{userData.name != null?userData.name.slice(-2):""}}</span>
-						<span class="add_nav_msg_header" v-if="userData&&userData.fileInfo != null"><img :src="userData.fileInfo.url"></span>
-						<span class="add_nav_msg_name" v-if="userData">{{userData.name}}</span>
-						<span class="add_nav_msg_header" v-else></span>
-					</div>
-					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item style="text-align: center;font-size:12px;" v-if="userData.isAdmin == 1"  @click.native="navPersonal"><img src="./images/company_icon.png" style="display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align: text-bottom;">公司信息</el-dropdown-item>
-						<el-dropdown-item  style="text-align: center;font-size:12px;"  @click.native="navPersonal2"><img src="./images/personal_icon.png" style="display:inline-block;width:12px;height:14px;vertical-align: text-bottom;margin-right:6px;">账号设置</el-dropdown-item>
-
-              	<!--<router-link to="/personal">个人中心</router-link>-->
-						<el-dropdown-item style="text-align: center;font-size:12px;" command="logOut"><img src="./images/quit_icon.png" style="display:inline-block;width:12px;height:14px;margin-right:6px;vertical-align: text-bottom;">退出登录</el-dropdown-item>
-					</el-dropdown-menu>
-				</el-dropdown>
-			</div>
-      <div class="app_nav_upgrade" @click="upgrade" v-if="userData&&userData.userNature==1">
-        版本升级
-      </div>
 		</div>
-
 <!-- 内容 -->
 		<div class="app_right" v-bind:class="{smallbarClass: !smallbarShow,'app_right_p':!appNaveHide}">
 			<div class="app_right_box">
@@ -67,137 +18,13 @@
 <!-- 菜单 -->
 		<div class="app_left" v-bind:class="{smallbarClass: !smallbarShow}" v-if="appNaveHide">
 			<div class="app_left_smallbar" @click="smallbar"><i class="iconfont">&#xe620;</i></div>
-
-    <div v-for="MainItem in leftMenuList" :key="MainItem.id">
-      <div v-if="userMenusToggle == MainItem.id">
-        <el-menu   v-for="item in MainItem.children" :key="item.id" :router="true" :default-active="defaultActive" :unique-opened="true" v-bind:class="{smallbarClass: !smallbarShow}" @select="selectMenu" :default-openeds="defaultOpeneds" :collapse="!smallbarShow">
-          <el-submenu v-if="item.children" :index="item.link">
-            <template v-if="item.children" slot="title"><i class="iconfont" v-html="item.icon"></i><span>{{ item.name }}</span></template>
-            <el-menu-item v-for="ite in item.children" :index="ite.link" :key="ite.id" v-if="ite.name != '客服管理'">{{ ite.name }}</el-menu-item>
-            <!-- <el-menu-item @click="openMpkf" index="/ATS/abc" v-else>{{ ite.name }}</el-menu-item> -->
-            <p class="el-menu-item" style="padding-left: 40px;font-size:15px;" @click="openMpkf" v-else>客服管理</p>
-          </el-submenu>
-          <el-menu-item v-if="item.children == null&&item.name!='工资单'" :index="item.link"><i class="iconfont" v-html="item.icon"></i><span slot="title">{{ item.name }} </span></el-menu-item>
-          <el-menu-item v-if="item.children == null&&item.name=='工资单'" :index="item.link" @click="routerPayStubs"><i class="iconfont" v-html="item.icon"></i><span slot="title">{{ item.name }} </span></el-menu-item>
-        </el-menu>
-      </div>
-    </div>
+      <ul role="menubar" class="el-menu" style=""><router-link to="/ATS/recruitment">
+        <li role="menuitem" tabindex="-1" class="el-menu-item" style="padding-left: 20px;color:#5CB3FF;">
+          <i class="iconfont" style="color:#5CB3FF;">&#xe61b;</i>
+          <span v-show="smallbarShow">产品动态</span>
+        </li></router-link>
+        </ul>
 		</div>
-		<el-dialog title="没有U盾提示" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 0" class="ukey_pop">
-			<p>如果您未插入爱聚U盾，请先插入U盾。</p>
-			<p>如果您未安装爱聚U盾驱动，请点击<a href="https://aijuhr.com/USBinstall/SetUp.exe">安装驱动</a>。</p>
-			<p>如果您没有U盾，请联系我们。</p>
-			<p>电话：0571-89935939 QQ：800036070</p>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="ukeyPopNum = 1">遇到问题</el-button>
-			</span>
-		</el-dialog>
-		<el-dialog title="遇到问题" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 1" class="ukey_pop">
-			<p>1、查看在设备管理器中是否存在该设备。（我的电脑->属性->硬件->设备管理器）</p>
-			<p>2、请将爱聚U盾插入其他电脑进行测试，确认U盾是否正常。</p>
-			<p>3、请确认爱聚U盾是否和账号对应。</p>
-			<p>4、请确认爱聚U盾是否被液体浸湿，在使用时一定要注意防水及防潮。</p>
-			<p>5、如插入爱聚U盾后网站无法识别，请确认电脑是否安装控件。</p>
-			<p>6、电脑应该有良好的接地，如果接地不良，当有漏电就有可能使U盾损坏。</p>
-			<p>如果您在使用过程中遇到了什么问题，您可以联系我们的售后人员。</p>
-			<p>联系电话：0571-89935939 联系QQ：800036070</p>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-			</span>
-		</el-dialog>
-		<el-dialog title="U盾需要激活" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 2">
-			<p>您的U盾需要激活</p>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="ukeyPopNum = 3">激活</el-button>
-			</span>
-		</el-dialog>
-		<el-dialog title="确认激活页面" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 3">
-			<el-form label-width="100px" :model="ukeyActiveForm" :rules="ukeyActiveRules" ref="ukeyActiveForm">
-				<el-form-item label="u盾序列号" prop="listkey">
-					<el-input v-model="ukeyActiveForm.listkey"></el-input>
-				</el-form-item>
-				<el-form-item label="u盾激活码" prop="cdkey">
-					<el-input v-model="ukeyActiveForm.cdkey"></el-input>
-				</el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="ukeyActiveSubmit('ukeyActiveForm')">确认</el-button>
-			</span>
-		</el-dialog>
-		<el-dialog title="设置二级密码" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 4">
-			<el-form label-width="130px" :model="ukeyPasswordForm" :rules="ukeyPasswordRules" ref="ukeyPasswordForm">
-				<el-form-item label="请输入密码" prop="password">
-					<el-input type="password" v-model="ukeyPasswordForm.password"></el-input>
-				</el-form-item>
-				<el-form-item label="请再次输入密码" prop="againPassword">
-					<el-input type="password" v-model="ukeyPasswordForm.againPassword"></el-input>
-				</el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="ukeyPasswordEdit('ukeyPasswordForm')">确认</el-button>
-			</span>
-		</el-dialog>
-		<el-dialog title="密码验证" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 5">
-			<el-form label-width="130px" :model="ukeyValidateForm" :rules="ukeyValidateRules" ref="ukeyValidateForm">
-				<el-form-item label="请输入U盾密码(二级密码)" prop="validate">
-					<el-input type="password" v-model="ukeyValidateForm.validate"></el-input>
-				</el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="ukeyPasswordSubmit('ukeyValidateForm')">确认</el-button>
-			</span>
-		</el-dialog>
-
-		<!--新增二级密码-->
-		<el-dialog title="设置二级密码" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 6">
-			<el-form label-width="140px" :model="twoPasswordForm" :rules="twoPasswordRules" ref="twoPasswordForm">
-				<el-form-item label="请输入密码" prop="password">
-					<el-input type="password" v-model="twoPasswordForm.password"></el-input>
-				</el-form-item>
-				<el-form-item label="请再次输入密码" prop="againPassword">
-					<el-input type="password" v-model="twoPasswordForm.againPassword"></el-input>
-				</el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="twoPasswordSubmit('twoPasswordForm')">确认</el-button>
-			</span>
-		</el-dialog>
-		<!--验证二级密码-->
-		<el-dialog title="验证二级密码" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 7">
-			<el-form label-width="130px" :model="twoValidateForm" :rules="twoValidateRules" ref="twoValidateForm">
-				<el-form-item label="请输入密码" prop="password">
-					<el-input type="password" v-model="twoValidateForm.password"></el-input>
-				</el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="ukeyPop = true; ukeyPopNum = 8;">忘记密码</el-button>
-				<el-button type="primary" @click="twoPasswordValidate('twoValidateForm')">确认</el-button>
-			</span>
-		</el-dialog>
-		<!--手机验证-->
-		<el-dialog title="验证手机" :visible.sync="ukeyPop" size="tiny" v-if="ukeyPopNum == 8">
-			<el-form label-width="130px" :model="twoPhoneForm" :rules="twoPhoneRules" ref="twoPhoneForm">
-				<el-form-item label="请输入手机号码" prop="phone">
-					<el-input v-model="twoPhoneForm.phone"></el-input>
-				</el-form-item>
-				<el-form-item label="请输入验证码" prop="validate">
-					<el-input v-model="twoPhoneForm.validate" style="margin-bottom: 20px;"></el-input>
-					<el-button type="" @click="twoPhoneNote" v-text="payStubsResetBtnName" :disabled="disabled"></el-button>
-				</el-form-item>
-
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="ukeyPop = false;">取消</el-button>
-				<el-button type="primary" @click="twoPhoneValidate('twoPhoneForm')">确认</el-button>
-			</span>
-		</el-dialog>
 	</div>
 </template>
 
@@ -316,12 +143,12 @@ export default {
     };
   },
   created () {
-    this.getLeftMenu();
+    // this.getLeftMenu();
   },
   mounted: function() {
-    this.userAjax();
+    // this.userAjax();
     this.oaLoginShow();
-    this.initDemoData();
+    // this.initDemoData();
     load();
     this.$nextTick(function() {
       // this.defaultActive = window.location.hash.substring(1);
@@ -349,26 +176,11 @@ export default {
           this.ukeyPopShow()
       }
     },
-    getLeftMenu(){
-        var method = "account/qryMenuList",
-        param=JSON.stringify({}),
-        succeed = (res)=> {
-            console.log(res)
-            this.leftMenuList = res.data.data;
-        };
-        this.$webHttp(method, param, succeed, null);
-    },
     selectMenu: function(index, indexpath) {
       console.log(index, indexpath);
-      // if(!this.smallbarShow){
-      // 	this.defaultOpeneds = [];
-      // }
     },
     smallbar: function() {
       this.smallbarShow = !this.smallbarShow;
-      // if(!this.smallbarShow){
-      // 	this.defaultOpeneds = [];
-      // }
     },
     userAjax: function() {
       var self = this;
