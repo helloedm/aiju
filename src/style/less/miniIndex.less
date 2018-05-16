@@ -1,0 +1,299 @@
+.img-box{
+    text-align: center;
+    margin-bottom: 60px;
+    img{
+        width:80px;
+        height: 80px;
+        margin-bottom: 25px;
+    }
+    p{
+        font-size:16px;
+        font-weight: 600;
+        font-family: 'PingFangSC';
+    }
+}
+ .mini-program{
+     font-size:14px;
+     h4.title{
+       line-height:40px;
+       background-color: #ffffff;
+       margin-bottom:20px;
+       padding-left:20px;
+       font-weight: normal;
+     }
+     .content-wrap{
+         padding:20px;
+         background-color: #ffffff; 
+         .process .tip{
+             font-size: 14px;
+             color: #FE8B25;
+             margin-left:32px;
+             i{
+                color: #FE8B25;
+                margin-right:8px;  
+             }
+         }
+         .authorize-wrap{
+             margin-top:60px;
+             
+             .area{
+                 width:718px;
+                 margin:0 auto 50px;
+                 overflow: hidden;
+                 .left{ float: left; width:532px; padding-left:22px; margin-right:26px; line-height: 1.5;}
+                 .right{ 
+                    float: left; 
+                    .btn{display: block; line-height: 36px;padding-left:20px;padding-right:20px;color:#fff;font-size:14px;border-radius: 4px; cursor: pointer;}
+                }
+             }
+             .area .authorize-left{
+                 width: 490px;
+                 margin-right:68px;
+                 background: url('../../images/exclamatory.png') left 6px no-repeat;
+                 background-size: 14px 12px;
+                 .authorize-cue{ color: #F2A654;}
+             }
+             .authorize-right{
+                 .btn{ background: #5AA2E7;}
+             }
+             .register-right{
+                 .btn{ background: #46BE8A;}
+             }
+         }
+         .examine-wrap{
+              margin-top:40px;
+              .examine{
+                  width:800px;
+                  margin:0 auto;
+                  .server-mini{
+                    padding-bottom:20px;
+                    border-bottom:1px solid #E5E9F2;
+                    .right{
+                        width:216px;
+                        word-break: break-all;
+                    }
+                  }
+                  .mini-wrap{
+                      width: 500px;
+                      margin:0 auto;
+                      overflow: visible;
+                      font-size: 14px;
+                      display: flex;
+                      justify-content: space-between;
+                      position: relative;
+                      left: 50px;
+                      .left{
+                          color: #98A9BF;
+                          
+                      }
+                      .right{
+                          p{
+                              line-height: 1.8;
+                          }
+                          .tips{
+                              padding-left:70px;
+                              font-size:12px;
+                              color:#98A9BF;
+                          }
+                      }
+                  }
+                  .user-mini{
+                      width: 500px;
+                      height: 140px;
+                      padding-top:20px;
+                      margin:0 auto;
+                      position: relative;
+                      .right{
+                          position: absolute;
+                          left:285px;
+                          width: 360px;
+                      }
+                  }
+                  .btn-area{
+                      margin-top:30px;
+                      font-size:14px;
+                      
+                      .top{
+                          margin-bottom:20px;
+                          text-align: center;
+                          
+                          span{
+                            display: inline-block;
+                            margin-right:14px;
+                            background: #5AA2E7;
+                            line-height: 36px;padding-left:20px;padding-right:20px;color:#fff;font-size:14px;border-radius: 4px; cursor: pointer;
+                          }
+                      }
+                      .bottom{
+                        text-align: center;
+                          span{
+                              cursor: pointer;
+                              margin-right:14px;
+                              color: #5AA2E7;
+                          }
+                      }
+                  }
+              }
+         }
+     }
+ }
+
+.template-list{
+     margin-top:24px;
+    .ul{
+        padding:0 10px;
+        overflow: hidden;
+        .li{
+            width:260px;         
+            float: left;
+            margin-left: 23px;
+            margin-right:23px;
+            margin-bottom:30px;
+            .website-title{
+                height: 21px;
+                font-size:16px;
+                color: #1F2D3D;
+                margin-bottom:16px;
+                text-align: center;
+                font-family: 'Microsoft YaHei','SimHei','Avenir', Helvetica, Arial, sans-serif;
+            }        
+            .website-area{
+                width: 100%;
+                height: 460px;
+                overflow: hidden;
+                // box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.15);
+                border:1px solid #DCDFE6;
+                background: #f1f5f8;
+                position: relative;
+                .share-box{
+                    position: absolute;
+                    right:10px;
+                    bottom:70px;
+                    z-index: 1;
+                    width:30px;
+                    height: 30px;
+                    background: url('../../images/share_icon.png') left top no-repeat;
+                    background-size:100%;
+                }
+                .ewm-box{
+                    position: absolute;
+                    top:0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 2;
+                    background: rgba(0,0,0,.5);
+                    display: none;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    .img-box{
+                        width:96px;
+                        height: 96px;
+                        margin-bottom: 10px;
+                    }
+                    .word { font-size:14px; color: #fff;}
+                }
+                &:hover .ewm-box { display: flex; }
+                .header{
+                    height: 15px;
+                }
+                .company-name{
+                    text-align: center;
+                    position: relative;
+                    line-height: 30px;
+                    height: 30px;
+                    font-weight: 600;
+                    font-size:13px;
+                    background:#fff url('../../images/mini-right-btn.png') right center no-repeat;
+                    
+                }
+                .company-profile{
+                    margin-bottom:10px;
+                }
+                .banner-image{
+                    height: 130px;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+
+                }
+                .logo-slogan-wrap{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    padding-bottom:20px;
+                    background-color: #fff;
+                    position: relative;
+                    overflow: visible;
+                    height: 90px;
+                  }
+                  .logo-slogan-wrap .logo{
+                     position: absolute;
+                     top:-30px;
+                     left:97px;
+                     width:66px;
+                     height:66px; 
+                     border-radius: 50%;
+                     overflow: hidden;
+                     background-color: #fff;
+                     background-size:100%;
+                     background-repeat: no-repeat;
+                     box-shadow: 0 4px 4px #ccc;
+                     margin-bottom:10px;
+                  }
+                  .logo-slogan-wrap .title{
+                    font-size:16px;
+                    color:rgba(66,80,98,1);
+                    line-height:1.5;
+                    margin-top:45px;
+                  }
+                  .logo-slogan-wrap .slogan{
+                    margin-top:6px;
+                    font-size:12px;
+                    color:rgba(153,153,153,1);
+                    line-height:1.5;
+                  }
+                  .company-intro{
+                      background: #fff;
+                      padding:0 8px;
+                      padding-bottom:12px;
+                      .intro-hd{ display: flex; align-items: center; height: 30px; border-bottom:1px solid #e5e5e5; padding-left:20px; background: url('../../images/icon-company.png') left center no-repeat; 
+                        background-size:16px auto;
+                     }
+                     .intro-bd{
+                         color: #999; font-size:12px; line-height: 1.5; text-indent: 2em; padding-top:8px; height: 75px; overflow: hidden;               
+                     }
+                  }
+                  .tabbar{
+                      ul{
+                          display: flex;
+                          width: 100%;
+                          height: 38px;
+                          border-top:1px solid #DCDFE6;
+                          background: #fff;
+                          li{
+                              flex:1;
+                              display: flex;
+                              flex-direction: column;
+                              justify-content: center;
+                              align-items: center;
+                              p{ font-size:10px; color: #999; transform:scale(0.8)}
+                              &.selected p { color: #56A6F1; }
+                          }
+                      }
+                  }
+            }
+            .checkbox{ margin-top:24px; text-align: center;
+                .el-checkbox__inner{
+                    width:24px;
+                    height: 24px;
+                }
+            }
+        }
+    }
+    .btn-area{
+        text-align: center; margin-bottom: 100px
+    }
+}
+
