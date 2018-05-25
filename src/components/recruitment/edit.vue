@@ -9,7 +9,14 @@
             <div style="color:#1F2D3D;font-size:14px;margin:24px 0 0 24px;font-weight:bold;">标题</div>
             <input type="text" v-model="edit_ped.title" maxlength="40" placeholder="请输入标题" style="margin:8px 0 0 24px;width:320px;height:32px;border:1px solid #DCDFE6;text-indent: 1em;">
             <div style="color:#1F2D3D;font-size:14px;margin:24px 0 0 24px;font-weight:bold;">产品动态描述</div>
-            <textarea v-model="edit_ped.content" maxlength="1000" name="" id="" cols="30" rows="10" style="resize:none;padding-top: 10px;margin:8px 0 0 24px;width:1022px;height:88px;border:1px solid #DCDFE6;text-indent: 1em;" placeholder="请输入动态描述"></textarea>
+            <quill-editor
+            style="margin-top: 20px;width:1022px;margin: 8px 0px 0px 24px;overflow: hidden;"
+            class="quilleditor"
+            :options="editorOption"
+            v-model="edit_ped.content"
+            ref="myTextEditor">
+            </quill-editor>
+            <!-- <textarea v-model="edit_ped.content" maxlength="1000" name="" id="" cols="30" rows="10" style="resize:none;padding-top: 10px;margin:8px 0 0 24px;width:1022px;height:88px;border:1px solid #DCDFE6;text-indent: 1em;" placeholder="请输入动态描述"></textarea> -->
             <div>
                 <el-button type="primary" class="button" style="margin:40px 0 0 24px;color：#fff;" @click="edit_orProductTrend">发布动态</el-button>
                 <el-button type="primary" class="button" style="margin:40px 0 0 24px;color：#fff;" @click="original" v-show="is_qx">取消</el-button>
@@ -24,6 +31,29 @@ export default {
   data(){
     return{
         edit_ped:{title:"",content:""},
+        editorOption: {
+            // theme: "bubble",
+            placeholder: "请输入职位描述，支持html",
+            modules: {
+            toolbar: [
+                ['bold', 'underline', 'strike'],        // toggled buttons
+                ['blockquote', 'code-block'],
+
+                [{'header': 1}, {'header': 2}],               // custom button values
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+                [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
+                [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+                [{'direction': 'rtl'}],                         // text direction
+
+                [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+                [{'header': [1, 2, 3, 4, 5, 6, false]}],
+
+                [{'color': []}, {'background': []}],          // dropdown with defaults from theme
+                [{'font': []}],
+                [{'align': []}],
+            ]
+            }
+        },
         is_qx:localStorage.edit_prd == undefined?false:true
     }
   },
@@ -104,5 +134,10 @@ export default {
     }
     .button a{
         color: #ffffff;
+    }
+</style>
+<style>
+    .content .ql-editor{
+        min-height: 100px;
     }
 </style>
